@@ -1,11 +1,12 @@
 from homeharvest import scrape_property
 from datetime import datetime
 import pandas as pd
+OUTPUT_PATH = "output/"
 
 def main():
   # Generate filename based on current timestamp
   current_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-  filename = f"HomeHarvest_{current_timestamp}.csv"
+  filename = f"{OUTPUT_PATH}HomeHarvest_{current_timestamp}.csv"
 
   properties = scrape_property(
     location="Cary, NC",
