@@ -3,16 +3,26 @@ from datetime import datetime
 import pandas as pd
 OUTPUT_PATH = "output/"
 
+class Hunting:
+  def __init__(self, location, listing_type, past_days, property_type):
+    self.location = location
+    self.listing_type = listing_type
+    self.past_days = 120  # sold in last 30 days - listed in last 30 days if (for_sale, for_rent)
+    self.property_type = ['single_family', 'townhomes']
+
+
 def main():
   # Generate filename based on current timestamp
   current_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
   filename = f"{OUTPUT_PATH}HomeHarvest_{current_timestamp}.csv"
 
+  property_query = Hunting("Cary, NC", "for_sale", 120, ['single_family','townhomes'])
+
   properties = scrape_property(
-    location="Cary, NC",
-    listing_type="for_sale",  # or (for_sale, for_rent, pending)
-    past_days=120,  # sold in last 30 days - listed in last 30 days if (for_sale, for_rent)
-    property_type=['single_family','townhomes'],
+    location=property_query.location,
+    listing_type=property_query.listing_type,  # or (for_sale, for_rent, pending)
+    past_days=property_query.past_days,  # sold in last 30 days - listed in last 30 days if (for_sale, for_rent)
+    property_type=property_query.property_type,
     # date_from="2023-05-01", # alternative to past_days
     # date_to="2023-05-28",
     # foreclosure=True
